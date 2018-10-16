@@ -1,0 +1,14 @@
+.content {
+    overflow-y: scroll;
+    border-right: 3px solid gray;
+    border-left: 3px solid gray;
+    max-height: 50vh;
+    width: 70vw;
+    margin: auto;
+    text-align: center;
+    padding: 1em;
+}
+ .tag {
+     font-size: 2.2em
+ }
+

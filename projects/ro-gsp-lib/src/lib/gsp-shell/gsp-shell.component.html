@@ -1,0 +1,118 @@
+<div *ngIf="!redeem && !instructions" style="height: 100vh;
+     overflow: hidden;
+     margin: 0px;
+     background-color: #9098e0;
+            font-family: Roboto;
+            font-size: small;">
+    <div style="text-align: center">
+        <h2>Good Samaritan Program</h2>
+    </div>
+    <div *ngIf="!addprogram" style="padding: 20px; max-height:85vh; overflow: scroll">
+        <mat-card>
+            <h3>Points Earned</h3>
+            <mat-card-content>
+                <div *ngFor="let e of entries" style="max-height: 10vh">
+                    {{e.name}}:<span style="float: right">{{e.points}}</span>
+                </div>
+                <hr>
+                Total: <span style="float: right">{{available}}</span><br><br>
+                <h3>Points Redeemed</h3>
+                <div *ngFor="let t of redemptions" style="max-height: 10vh">
+                    {{t.name}}:<span style="float: right">{{t.points}}</span>
+                </div>
+                <hr>
+                Total: <span style="float: right">{{pointsredeemed}}</span><br><br>
+                Available: <span style="float: right; font-size: large"><strong>{{available - pointsredeemed}}</strong></span><br>
+            </mat-card-content>
+            <p></p>
+        </mat-card>
+        <button mat-raised-button class="mat-primary" (click)="onAdd()">Add Program</button>
+        <button style="margin-left: 10px" mat-raised-button class="mat-primary" (click)="onRedeem()">Redeem</button>
+    </div>
+    <div *ngIf="addprogram" style="padding: 20px">
+        <mat-card>
+            <h3>Add Program</h3>
+            <p *ngIf="err" style="color:red">Invalid Program Id. Please, reenter.</p>
+            <mat-form-field style="width:100%">
+                <input matInput
+                       type="text"
+                       [(ngModel)]="programid"
+                       placeholder="Program Id">
+            </mat-form-field>
+        </mat-card>
+        <button mat-raised-button class="mat-primary" (click)="onCancel()">Cancel</button>
+        <button style="margin-left: 10px" mat-raised-button class="mat-primary" (click)="onSave()">Save</button>
+    </div>
+</div>
+
+
+<div *ngIf="redeem" style="padding-top: 2px;
+                font-family: Roboto;
+                font-size: small;
+                height: 100vh;
+                background-color: #eee611;">
+
+    <div style="text-align: center;"><h2>Redeem Your Good Samaritan Points</h2></div>
+    <button style="margin-left: 20px;" mat-raised-button class="mat-primary" (click)="onDone()">Done</button>
+    <div style="padding-left: 20px; padding-right: 20px; max-height: 80vh; overflow-y: scroll">
+        <div *ngFor="let r of rewards; let i=index">
+            <mat-card class="example-card">
+                <div><strong>{{r.name}}</strong></div>
+                <div style="margin-top:5px">Points: {{r.points}}<span
+                        style="float: right">Expires: {{r.expires | date}}</span></div>
+                <img *ngIf="r.image" mat-card-image [src]="r.image">
+                <mat-card-content>
+                    <p>
+                        {{r.description}}
+                    </p>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-button (click)="onPurchase(i)">REDEEM</button>
+                </mat-card-actions>
+            </mat-card>
+            <br>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="instructions" style="padding-top: 2px;
+                font-family: Roboto;
+                font-size: small;
+                height: 100vh;
+                background-color: #11ee2b;">
+    <div style="text-align: center;"><h2>Confirm Redemption</h2></div>
+    <div style="padding-left: 20px; padding-right: 20px;">
+
+        <mat-card>
+            <h3>{{curreward.name}}</h3>
+            <p>Thank you for your participation in our Samaritan Program. Your participation will help create a
+                safe and supportive community for all of us!</p>
+            <p>It's with pleasure that we are able to reward your participation with this item. Please enter your
+                valid school email address twice to confirm your redemption. After you tap on Continue we will send
+                you a confirmation email with complete redemption instructions.</p>
+            <p>Privacy: You are currently using a mini-app within Reach Out Editions. These are separate apps. We
+                will not link your email address to Reach Out Editions. In this way we can ensure that you can continue
+                to
+                use Reach Out Editions anonymously.</p>
+            <p>This item costs <strong>{{curreward.points}}</strong>. After this redemption you will have
+                <strong>{{available - curreward.points}}</strong> points left.</p>
+            <p *ngIf="err" style="color: red">ERROR. Please reinput the email addreses.</p>
+            <mat-form-field>
+                <input matInput
+                       type="text"
+                       [(ngModel)]="email1"
+                       placeholder="Valid School Email Address">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput
+                       type="text"
+                       [(ngModel)]="email2"
+                       placeholder="Reenter Your Email Address">
+            </mat-form-field>
+        </mat-card>
+        <button mat-raised-button class="mat-primary" (click)="onCancelPurchase()">Cancel</button>
+        <button style="margin-left: 10px" mat-raised-button class="mat-primary" (click)="onContinuePurchase()">
+            Continue
+        </button>
+    </div>
+</div>

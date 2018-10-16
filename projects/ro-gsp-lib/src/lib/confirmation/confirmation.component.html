@@ -1,0 +1,27 @@
+<h3 class="h3format">Are You Sure?</h3>
+
+<div class="inhcon" style="padding: 0px 20px 20px 20px">
+    <p>Congratuations! You have completed this course. To receive credit please provide your
+        valid school email address. Please note, your email address will not be used for any other purpose and
+        it will not be saved. This will ensure that use of Reach Out remains 100% anonymous. To ensure that there is no
+        typo, we ask that you input it twice. Thank you.</p>
+    <p *ngIf="error" style="color: red">The emails do not match.</p>
+    <div style="text-align: center">
+        <mat-form-field>
+            <input matInput
+                   type="text"
+                   [(ngModel)]="email"
+                   placeholder="Your valid school address">
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+            <input matInput
+                   type="text"
+                   [(ngModel)]="email1"
+                   placeholder="Your valid school address">
+
+        </mat-form-field>
+    </div>
+    <br>
+    <button class="mat-primary" (click)="onSave()" mat-raised-button>Submit</button>
+</div>

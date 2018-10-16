@@ -1,0 +1,8 @@
+.animationcontainer {
+    position: relative;
+
+}
+
+.animationcontainer>* {
+    display: block;
+}

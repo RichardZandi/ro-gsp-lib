@@ -1,0 +1,19 @@
+<div *ngIf="isloading" style="height:100vh; width: 100vh; margin: 50% 40%">
+    <mat-spinner style="width:20%"></mat-spinner>
+</div>
+
+
+<div *ngIf="collegename && deviceid">
+    <capp-gsp-shell  [org]="collegename"
+                       [curlang]="curlang"
+                       [height]="height"
+                       [width]="width"
+                       [deviceid]="deviceid"></capp-gsp-shell>
+</div>
+
+
+
+
+
+
+
